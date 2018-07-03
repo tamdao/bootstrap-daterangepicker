@@ -11,7 +11,7 @@
         // AMD. Make globaly available as well
         define(['moment', 'jquery'], function (moment, jquery) {
             if (!jquery.fn) jquery.fn = {}; // webpack server rendering
-            return factory(moment, jquery);
+          return factory(moment.default ? moment.default : moment, jquery);
         });
     } else if (typeof module === 'object' && module.exports) {
         // Node / Browserify
