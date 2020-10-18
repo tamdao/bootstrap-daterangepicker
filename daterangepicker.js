@@ -218,9 +218,6 @@
         if (typeof options.drops === 'string')
             this.drops = options.drops;
         
-        if (typeof options.selectWeek === 'boolean')
-            this.selectWeek = options.selectWeek;
-
         if (typeof options.showWeekNumbers === 'boolean')
             this.showWeekNumbers = options.showWeekNumbers;
 
@@ -249,6 +246,13 @@
             this.singleDatePicker = options.singleDatePicker;
             if (this.singleDatePicker)
                 this.endDate = this.startDate.clone();
+        }
+
+        if (typeof options.selectWeek === 'boolean') {
+            this.selectWeek = options.selectWeek;
+            if (this.selectWeek) {
+                this.endDate = this.startDate.clone().endOf('week');
+            }
         }
 
         if (typeof options.timePicker === 'boolean')
