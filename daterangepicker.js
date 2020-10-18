@@ -1209,7 +1209,6 @@
         },
 
         hoverDate: function(e) {
-            console.log('this.selectWeek', this.selectWeek)
             //ignore dates that can't be selected
             if (!$(e.target).hasClass('available')) return;
 
