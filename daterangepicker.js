@@ -1209,7 +1209,7 @@
         },
 
         hoverDate: function(e) {
-
+            console.log('this.selectWeek', this.selectWeek)
             //ignore dates that can't be selected
             if (!$(e.target).hasClass('available')) return;
 
@@ -1247,7 +1247,6 @@
         },
 
         clickDate: function(e) {
-
             if (!$(e.target).hasClass('available')) return;
 
             var title = $(e.target).attr('data-title');
@@ -1266,8 +1265,9 @@
             //
 
             if (this.endDate || date.isBefore(this.startDate, 'day')) { //picking start
-                if(this.selectWeek)
+                if(this.selectWeek) {
                     date = moment(date).startOf('week').add(this.startWeekDay, 'days');
+                }
                 if (this.timePicker) {
                     var hour = parseInt(this.container.find('.left .hourselect').val(), 10);
                     if (!this.timePicker24Hour) {
@@ -1288,8 +1288,9 @@
                 //but the time of the end date is before the start date
                 this.setEndDate(this.startDate.clone());
             } else { // picking end
-                if(this.selectWeek)
+                if(this.selectWeek) {
                     date = moment(date).endOf('week').add(this.startWeekDay, 'days');
+                }
                 if (this.timePicker) {
                     var hour = parseInt(this.container.find('.right .hourselect').val(), 10);
                     if (!this.timePicker24Hour) {
@@ -1311,7 +1312,12 @@
             }
 
             if (this.singleDatePicker) {
-                this.setEndDate(this.startDate);
+                if (this.selectWeek) {
+                    this.setEndDate(this.startDate.clone().endOf('week'))
+                } else {
+                    this.setEndDate(this.startDate);
+                }
+                
                 if (!this.timePicker)
                     this.clickApply();
             }
