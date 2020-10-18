@@ -44,6 +44,7 @@
         this.minYear = moment().subtract(100, 'year').format('YYYY');
         this.maxYear = moment().add(100, 'year').format('YYYY');
         this.showWeekNumbers = false;
+        this.selectWeek = false;
         this.showISOWeekNumbers = false;
         this.showCustomRangeLabel = true;
         this.timePicker = false;
@@ -216,6 +217,9 @@
 
         if (typeof options.drops === 'string')
             this.drops = options.drops;
+        
+        if (typeof options.selectWeek === 'boolean')
+            this.selectWeek = options.selectWeek;
 
         if (typeof options.showWeekNumbers === 'boolean')
             this.showWeekNumbers = options.showWeekNumbers;
@@ -1262,6 +1266,8 @@
             //
 
             if (this.endDate || date.isBefore(this.startDate, 'day')) { //picking start
+                if(this.selectWeek)
+                    date = moment(date).startOf('week').add(this.startWeekDay, 'days');
                 if (this.timePicker) {
                     var hour = parseInt(this.container.find('.left .hourselect').val(), 10);
                     if (!this.timePicker24Hour) {
@@ -1282,6 +1288,8 @@
                 //but the time of the end date is before the start date
                 this.setEndDate(this.startDate.clone());
             } else { // picking end
+                if(this.selectWeek)
+                    date = moment(date).endOf('week').add(this.startWeekDay, 'days');
                 if (this.timePicker) {
                     var hour = parseInt(this.container.find('.right .hourselect').val(), 10);
                     if (!this.timePicker24Hour) {
